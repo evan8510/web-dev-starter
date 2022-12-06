@@ -10,9 +10,68 @@
 </head>
 
 <body>
-<h1>Hello World!</h1>
+<div>
+    <div>
+      <h1 id = "message" class ="toppage"> stars </h1>
+    </div>
+</div>
+    <input type="file" name="inputfile"
+          id="inputfile">
+    <br>
 
+    <pre id="output"></pre>
+
+    <script type="text/javascript">
+      var data = "";
+    document.getElementById('inputfile')
+    .addEventListener('change', function() {
+  
+    var fr=new FileReader();
+    fr.onload=function(){
+        data = fr.result;
+        
+    const stars = data.split(data.substring(4,5));
+    //var sum = 0;
+    const sums = [0,0,0];
+    var tempSum = 0;
+    var t =0;
+      for(var i =0; i<stars.length; i++){
+        if(stars[i] == stars[2]){
+          //if(tempSum>sum) sum = tempSum;
+          if(tempSum>sums[0]){
+            t = sums[0];
+            sums[0] = tempSum;
+            tempSum = t;
+          }
+          if(tempSum>sums[1]){
+            t = sums[1];
+            sums[1] = tempSum;
+            sums[2] = t;
+          }
+          
+          tempSum =0;
+        }
+        else tempSum += parseInt(stars[i]);
+      }
+      t = sums[0] + sums[1] + sums[2];
+      document.getElementById('message').textContent = "" + t + "";
+
+        document.getElementById('output')
+                .textContent=(sums[0] + "\n" + sums[1] +"\n" + sums[2]+"\n");
+    }
+  
+    fr.readAsText(this.files[0]);
+    })
+
+
+
+    
+
+
+    </script>
+<script src="utils.js"></script>
 <script src="script.js"></script>
+
 </body>
 
 </html>
